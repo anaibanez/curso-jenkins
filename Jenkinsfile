@@ -17,7 +17,7 @@ pipeline {
        stage('test') {
       steps {
         withMaven(globalMavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf', mavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf', jdk: 'JDK', maven: 'MAVEN') {
-          bat 'mvn test -Dmaven.test.failure.ignore=true'
+          bat 'mvn test cobertura:cobertura -Dmaven.test.failure.ignore=true'
         }
       }
        }
