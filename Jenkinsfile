@@ -24,7 +24,15 @@ pipeline {
     }
     stage('Cobertura') {
       steps {
-        cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: 'target\\surefire-reports\\cobertura\\coverage.xml ', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+        cobertura(coberturaReportFile: 'target\\surefire-reports\\cobertura\\coverage.xml ', conditionalCoverageTargets: '70, 0, 0', lineCoverageTargets: '80, 0, 0', methodCoverageTargets: '80, 0, 0', sourceEncoding: 'ASCII')
+      }
+    }
+    stage('calidad') {
+      steps {
+        withMaven(globalMavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml', mavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml') {
+          bat 'mvn checkstyle:checkstyle pmd:pmd findbugs:findbugs -Dmaven.test.failure.ignore=true'
+        }
+
       }
     }
   }
