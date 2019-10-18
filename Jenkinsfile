@@ -9,5 +9,10 @@ pipeline {
 
       }
     }
+    stage('Deploy') {
+      steps {
+        deploy adapters: [tomcat7(credentialsId: '31dee02a-5d61-4182-8dfc-8ce677fc9cd6', path: '', url:    'http://localhost:8082')], contextPath: 'WebPrueba', war: 'target/*.war'
+      }
+   }
   }
 }
