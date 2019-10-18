@@ -29,7 +29,7 @@ pipeline {
     }
     stage('calidad') {
       steps {
-        withMaven(globalMavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml', mavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml') {
+        withMaven(globalMavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml', mavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml', jdk: 'JDK', maven: 'MAVEN') {
           bat 'mvn checkstyle:checkstyle pmd:pmd findbugs:findbugs -Dmaven.test.failure.ignore=true'
         }
 
