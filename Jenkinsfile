@@ -11,8 +11,16 @@ pipeline {
     }
     stage('Deploy') {
       steps {
-        deploy adapters: [tomcat7(credentialsId: '31dee02a-5d61-4182-8dfc-8ce677fc9cd6', path: '', url:    'http://localhost:8082')], contextPath: 'WebPrueba', war: 'target/*.war'
+        deploy(adapters: [tomcat7(credentialsId: '31dee02a-5d61-4182-8dfc-8ce677fc9cd6', path: '', url:    'http://localhost:8082')], contextPath: 'WebPrueba', war: 'target/*.war')
       }
-   }
+    }
+    stage('test') {
+      steps {
+        withMaven(globalMavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf', mavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf', jdk: 'JDK', maven: 'MAVEN') {
+          bat 'mvn test -Dmaven.test.failure.ignore=true'
+        }
+
+      }
+    }
   }
 }
