@@ -27,12 +27,9 @@ pipeline {
         cobertura(coberturaReportFile: 'target\\surefire-reports\\cobertura\\coverage.xml ', conditionalCoverageTargets: '70, 0, 0', lineCoverageTargets: '80, 0, 0', methodCoverageTargets: '80, 0, 0', sourceEncoding: 'ASCII')
       }
     }
-    stage('calidad') {
+    stage('informes'){
       steps {
-        withMaven(globalMavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml', mavenSettingsFilePath: 'C:\\Users\\alumno.33\\Desktop\\Jenkins - Alumno\\maven\\conf\\settings.xml', jdk: 'JDK', maven: 'MAVEN') {
-          bat 'mvn checkstyle:checkstyle pmd:pmd findbugs:findbugs -Dmaven.test.failure.ignore=true'
-        }
-
+        recordIssues(tools: [pmdParser(), checkStyle(), findBugs(useRankAsPriority: true)])
       }
     }
   }
